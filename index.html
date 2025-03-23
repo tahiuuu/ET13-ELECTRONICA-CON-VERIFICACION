@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4°3 HORARIOS</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #fcfcfc; margin: 0; padding: 0; display: none; }
+        header { background: #003cff; color: rgb(255, 0, 0); padding: 20px; }
+        section { padding: 20px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 10px; }
+        table { width: 80%; margin: auto; border-collapse: collapse; margin-top: 20px; display: none; }
+        th, td { border: 1px solid black; padding: 10px; text-align: center; }
+        .floating-button { position: fixed; bottom: 20px; right: 20px; background: #003cff; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; cursor: pointer; }
+        .modal { display: none; position: fixed; top:50%; left:50%; transform: translate(-50%, -50%); background: white; padding: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); border-radius: 10px; text-align: left; }
+        .modal select, .modal input, .modal button { display: block; width: 100%; margin: 10px 0; padding: 8px; }
+        .task-list { text-align: left; width: 60%; margin: auto; margin-top: 20px; }
+        .task-item { background: #f1f1f1; padding: 10px; margin-top: 5px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .task-item button { background: red; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header><h1>CALENDARIO 4°3 ELECTRONICA</h1></header>
+    <section>
+        <p>Toca la opcion que quieras ver.</p>
+        <button onclick="mostrarTabla()">Ver horarios.</button>
+        <button onclick="ocultarTabla()">Ocultar horarios.</button>
+        <table id="tabla">
+            <tbody>
+                <tr>
+                    <td>HORAS</td>
+                    <td>LUNES</td>
+                    <td>MARTES</td>
+                    <td>MIÉRCOLES</td>
+                    <td>JUEVES</td>
+                    <td>VIERNES</td>
+                </tr>
+                <tr>
+                    <td>7:55 HS A 8:35 HS</td>
+                    <td>LAB.MED.ENS</td>
+                    <td>CIRCUITOS ELECTRÓNICOS</td>
+                    <td>-</td>
+                    <td>MATEMÁTICA</td>
+                    <td>MATEMÁTICA</td>
+                </tr>
+                <tr>
+                    <td>8:35 HS A 9:15 HS</td>
+                    <td>LAB.MED.ENS</td>
+                    <td>CIRCUITOS ELECTRONICOS</td>
+                    <td>INGLES</td>
+                    <td>MATEMATICA</td>
+                    <td>MATEMATICA</td>
+                </tr>
+                <tr>
+                    <td>9:25 HS A 10:05 HS</td>
+                    <td>LAB.MED.ENS</td>
+                    <td>CIRCUITOS ELECTRONICOS</td>
+                    <td>INGLES</td>
+                    <td>CIRCUITOS ELECTRONICOS</td>
+                    <td>SEA</td>
+                </tr>
+                <tr>
+                    <td>10:05 HS A 10:45 HS</td>
+                    <td>LAB.MED.ENS</td>
+                    <td>CIRCUITOS ELECTRONICOS</td>
+                    <td>INGLES</td>
+                    <td>CIRCUITOS ELECTRONICOS</td>
+                    <td>SEA</td>
+                </tr>
+                <tr>
+                    <td>10:55 HS A 11:35 HS</td>
+                    <td>TEC.DIGITALES</td>
+                    <td>TEC.DIGITALES</td>
+                    <td>LENGUA Y LITERATURA</td>
+                    <td>SEA</td>
+                    <td>SEA</td>
+                </tr>
+                <tr>
+                    <td>11:35 HS A 12:15 HS</td>
+                    <td>TEC.DIGITALES</td>
+                    <td>TEC.DIGITALES</td>
+                    <td>LENGUA Y LITERATURA</td>
+                    <td>SEA</td>
+                    <td>SEA</td>
+                </tr>
+                <tr>
+                    <td>12:15 A 12:55 HS</td>
+                    <td>-</td>
+                    <td>TEC.DIGITALES</td>
+                    <td>LENGUA Y LITERATURA</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>13:30 HS A 17:50</td>
+                    <td>TALLER</td>
+                    <td>-</td>
+                    <td>TALLER</td>
+                    <td>-</td>
+                    <td>ED FISICA HOMRES 12:30 A 14:30</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <button class="floating-button" onclick="abrirModal()">+</button>
+    <div id="modal" class="modal">
+        <h2>Agregar tarea</h2>
+        <label>Materia:</label>
+        <select id="materia">
+            <option value="LAB.MED.ENS">LAB.MED.ENS</option>
+            <option value="CIRCUITOS ELECTRÓNICOS">CIRCUITOS ELECTRÓNICOS</option>
+            <option value="MATEMÁTICA">MATEMÁTICA</option>
+            <option value="INGLES">INGLES</option>
+            <option value="SEA">SEA</option>
+            <option value="TEC.DIGITALES">TEC.DIGITALES</option>
+            <option value="LENGUA Y LITERATURA">LENGUA Y LITERATURA</option>
+            <option value="TALLER">TALLER</option>
+            <option value="ED FISICA">ED FISICA</option>
+        </select>
+        <label>Descripción:</label>
+        <input type="text" id="descripcion" placeholder="Ej. Resolver ejercicios">
+        <button onclick="agregarTarea()">Agregar</button>
+        <button onclick="cerrarModal()">Cerrar</button>
+    </div>
+    <div class="task-list" id="taskList"></div>
+    <script>
+        function verificarUsuario() {
+            let nombresPermitidos = ["mirko", "santiago", "ezequiel", "valentino", "luana", "nadid", "octavio", "aaron", "alan", "sebastian", "aspi", "dylan", "diego", "eliam", "edgar", "erik", "fernando", "jacqueline", "jazmin", "karen", "matias", "mayk", "renzo", "alvin", "albin", "alvim", "albim", "isaias"];
+            let nombre = prompt("Ingresa el nombre del alumno:");
+            if (nombre && nombresPermitidos.includes(nombre.toLowerCase())) {
+                document.body.style.display = "block";
+                cargarTareas();
+            } else {
+                alert("Acceso denegado");
+                document.body.innerHTML = "";
+            }
+        }
+        function mostrarTabla() { document.getElementById("tabla").style.display = "table"; }
+        function ocultarTabla() { document.getElementById("tabla").style.display = "none"; }
+        function abrirModal() { document.getElementById("modal").style.display = "block"; }
+        function cerrarModal() { document.getElementById("modal").style.display = "none"; }
+        function agregarTarea() {
+            let materia = document.getElementById("materia").value;
+            let descripcion = document.getElementById("descripcion").value;
+            if (descripcion.trim() !== "") {
+                let taskList = document.getElementById("taskList");
+                let taskItem = document.createElement("div");
+                taskItem.className = "task-item";
+                taskItem.innerHTML = `<span>${materia}: ${descripcion}</span> <button onclick="eliminarTarea(this)">X</button>`;
+                taskList.appendChild(taskItem);
+                guardarTareas();
+                cerrarModal();
+            }
+        }
+        function eliminarTarea(boton) {
+            boton.parentElement.remove();
+            guardarTareas();
+        }
+        function guardarTareas() {
+            let tareas = [];
+            document.querySelectorAll(".task-item").forEach(task => {
+                tareas.push(task.innerText.replace("X", "").trim());
+            });
+            localStorage.setItem("tareas", JSON.stringify(tareas));
+        }
+        function cargarTareas() {
+            let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
+            let taskList = document.getElementById("taskList");
+            tareas.forEach(tareaTexto => {
+                let taskItem = document.createElement("div");
+                taskItem.className = "task-item";
+                taskItem.innerHTML = `<span>${tareaTexto}</span> <button onclick="eliminarTarea(this)">X</button>`;
+                taskList.appendChild(taskItem);
+            });
+        }
+        window.onload = verificarUsuario;
+    </script>
+</body>
+</html>
